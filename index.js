@@ -9,6 +9,6 @@ app.use(routes);
 app.use(function(err, req, res, next){
 	console.log({error: err.message});
 });
-app.listen(process.env.port || 4000, function(){
+app.listen(process.env.PORT || 4000, function(){
 	console.log('Esperando por request puerto 4000');
 });
