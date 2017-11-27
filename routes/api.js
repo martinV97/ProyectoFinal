@@ -44,13 +44,22 @@ router.post('/empresa', function(req, res , next) {
 			}).catch(next);
 });
 
-router.get('/empresa', function(req, res, next) {
+/*router.get('/empresa', function(req, res, next) {
 	var results = {};
 	var query = client.query('SELECT * FROM public.empresa', 
 			function(err, result) {
         if(err) {return console.error(err);}
          results.empresas = result.rows;
          return res.json(results);
+    });
+});*/
+
+router.get('/empresa', function(req, res, next) {
+	var results = {};
+	var query = client.query('SELECT last_value FROM emp_ser_seq', 
+			function(err, result) {
+        if(err) {return console.error(err);}
+         return res.json(result.rows);
     });
 });
 
