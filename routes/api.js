@@ -147,7 +147,7 @@ router.get('/producto', function(req, res, next) {
 	var query = client.query('SELECT * FROM public.productos', 
 			function(err, result) {
         if(err) {return console.error(err);}
-         results.clientes = result.rows;
+         results.productos = result.rows;
          return res.json(results);
     });
 });
