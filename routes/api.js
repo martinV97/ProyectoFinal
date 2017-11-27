@@ -9,8 +9,8 @@ client.connect();
 
 router.get('/empresa/:id', function(req, res, next) {
 	var results = {};
-	//var query = client.query('SELECT * FROM public.empresa WHERE id = ' + req.params.id, 
-	var query = client.query('SELECT * FROM public.empresa', 
+	var query = client.query('SELECT * FROM public.empresa WHERE id = ' + req.params.id, 
+	//var query = client.query('SELECT * FROM public.empresa', 
 			function(err, result) {
         if(err) {return console.error(err);}
          results.empresa = result.rows;
@@ -46,18 +46,12 @@ router.post('/empresa', function(req, res , next) {
 
 router.get('/empresa', function(req, res, next) {
 	var results = {};
-	var query = client.query('SELECT last_value FROM emp_ser_seq', 
+	var query = client.query('SELECT * FROM public.empresa', 
 			function(err, result) {
         if(err) {return console.error(err);}
-         return res.json(result.rows);
+         results.empresas = result.rows;
+         return res.json(results);
     });
-});
-
-router.put('/rLegal/:id/:name', function(req, res, next) {
-	res.send({type:'PUT'});
-	console.log(req.params.id);
-	console.log(req.params.name);
-	
 });
 
 router.delete('/empresa/:id', function(req, res, next) {
@@ -69,6 +63,7 @@ router.delete('/empresa/:id', function(req, res, next) {
 			console.log("Success");	
 			}).catch(next);
 });
+//_____________________________________________________________________________________________________________________
 
 router.post('/usuario', function(req, res, next) {
 	var usuario = comilla + req.body.usuario + comilla;
@@ -92,5 +87,79 @@ router.get('/usuario', function(req, res, next) {
     });
 });
 
+router.delete('/usuario/:id', function(req, res, next) {
+	res.send({type:'DELETE'});
+	const id = req.params.id;
+	const queryDelete = client.query(
+			'DELETE FROM public.usuarios WHERE ID =' + id)
+	.then (function(data){
+			console.log("Success");	
+			}).catch(next);
+});
+
+//_____________________________________________________________________________________________________________________
+router.post('/cliente', function(req, res, next) {
+	var nombre = comilla + req.body.nombre + comilla;
+	var id_empresa = req.body.id_empresa;
+	var queryInsertEmpresa = client.query(
+			'INSERT INTO public.clientes(nombre, id_empresa)'
+			+ 'VALUES(' + nombre + ',' + id_empresa + ')'
+			).then (function(data){
+			console.log("Success");	
+			}).catch(next); 
+});
+
+router.get('/cliente', function(req, res, next) {
+	var results = {};
+	var query = client.query('SELECT * FROM public.clientes', 
+			function(err, result) {
+        if(err) {return console.error(err);}
+         results.clientes = result.rows;
+         return res.json(results);
+    });
+});
+
+router.delete('/cliente/:id', function(req, res, next) {
+	res.send({type:'DELETE'});
+	const id = req.params.id;
+	const queryDelete = client.query(
+			'DELETE FROM public.clientes WHERE ID =' + id)
+	.then (function(data){
+			console.log("Success");	
+			}).catch(next);
+});
+
+//_____________________________________________________________________________________________________________________
+router.post('/producto', function(req, res, next) {
+	var nombre = comilla + req.body.nombre + comilla;
+	var precio = req.body.precio;
+	var id_empresa = req.body.id_empresa;
+	var queryInsertEmpresa = client.query(
+			'INSERT INTO public.clientes(nombre, precio, id_empresa)'
+			+ 'VALUES(' + nombre + ',' + precio + ',' + id_empresa + ')'
+			).then (function(data){
+			console.log("Success");	
+			}).catch(next); 
+});
+
+router.get('/producto', function(req, res, next) {
+	var results = {};
+	var query = client.query('SELECT * FROM public.productos', 
+			function(err, result) {
+        if(err) {return console.error(err);}
+         results.clientes = result.rows;
+         return res.json(results);
+    });
+});
+
+router.delete('/producto/:id', function(req, res, next) {
+	res.send({type:'DELETE'});
+	const id = req.params.id;
+	const queryDelete = client.query(
+			'DELETE FROM public.productos WHERE ID =' + id)
+	.then (function(data){
+			console.log("Success");	
+			}).catch(next);
+});
 
 module.exports = router;
