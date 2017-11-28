@@ -140,6 +140,7 @@ router.delete('/cliente/:id', function(req, res, next) {
 
 //_____________________________________________________________________________________________________________________
 router.post('/producto', function(req, res, next) {
+	console.log("Entra");	
 	var nombre = comilla + req.body.nombre + comilla;
 	var precio = req.body.precio;
 	var id_empresa = req.body.id_empresa;
