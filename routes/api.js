@@ -144,7 +144,7 @@ router.post('/producto', function(req, res, next) {
 	var precio = req.body.precio;
 	var id_empresa = req.body.id_empresa;
 	var queryInsertEmpresa = client.query(
-			'INSERT INTO public.clientes(nombre, precio, id_empresa)'
+			'INSERT INTO public.productos(nombre, precio, id_empresa)'
 			+ 'VALUES(' + nombre + ',' + precio + ',' + id_empresa + ')'
 			).then (function(data){
 			console.log("Success");	
